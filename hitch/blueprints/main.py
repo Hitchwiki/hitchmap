@@ -41,8 +41,6 @@ def experience():
     signal = data["signal"] if data["signal"] != "null" else None
     assert signal in ["thumb", "sign", "ask", "ask-sign", None]
 
-    datetime_ride = data["datetime_ride"]
-
     now = str(datetime.utcnow())
 
     ip = request.headers.getlist("X-Real-IP")[-1] if request.headers.getlist("X-Real-IP") else request.remote_addr
@@ -90,7 +88,8 @@ def experience():
                 "dest_lon": dest_lon,
                 "country": country,
                 "signal": signal,
-                "ride_datetime": datetime_ride,
+                "ride_datetime": data["datetime_ride"],
+                "datetime_destination": data["datetime_destination"],
                 "user_id": current_user.id if not current_user.is_anonymous else None,
             }
         ],

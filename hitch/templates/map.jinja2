@@ -87,7 +87,18 @@
             <script>
                 document.getElementById("datetime_ride").max = (new Date().toISOString().slice(0, 11)) + "23:59";
             </script>
+            <label for="datetime_destination">When did you arrive at your destination?</label>
+            <input id="datetime_destination" type="datetime-local" name="datetime_destination">
+            <!-- maximum date is today -->
+            <script>
+                document.getElementById("datetime_destination").max = (new Date().toISOString().slice(0, 11)) + "23:59";
+            </script>
         </details>
+
+        <!-- <label for="gender">Optionally, what genders were you and your co-hitchhikers?</label> -->
+        <!-- <input type="number" value="0" name="males" min="0" max="9" size="2"> males, -->
+        <!-- <input type="number" value="0" name="females" min="0" max="9" size="2"> females, -->
+        <!-- <input value="0" type="number" name="others" min="0" max="9" size="2"> others -->
         <button>Submit</button>
     </form>
 </div>
