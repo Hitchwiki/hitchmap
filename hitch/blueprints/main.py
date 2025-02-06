@@ -24,7 +24,7 @@ main_bp = Blueprint("main", __name__)
 @main_bp.route("/<any(light, with_destination):map_variation>")
 @main_bp.route("/<any(index, light, with_destination):map_variation>.html")
 def map(map_variation):
-    return render_template("map.jinja2", map_variation=map_variation)
+    return render_template("map.html", map_variation=map_variation)
 
 
 # Log experience (reviews)

@@ -107,7 +107,7 @@ def register_routes(app):
 
     @app.route("/copyright.html")
     def copyright():
-        return render_template("copyright.jinja2")
+        return render_template("copyright.html")
 
     # These files are manually served in such a way to conform to web standards of them being in the root
     @app.route("/favicon.ico")
