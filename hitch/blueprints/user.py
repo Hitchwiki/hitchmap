@@ -1,3 +1,4 @@
+import pandas as pd
 from flask import Blueprint, current_app, jsonify, redirect, render_template
 from flask_security import current_user
 
@@ -95,6 +96,45 @@ def show_account(username, is_me: bool = False):
         return "User not found."
 
     return render_template("security/account.html", user=user, is_me=is_me)
+
+
+@user_bp.route("/contributors", methods=["GET"])
+def contributors():
+    query = """select
+            u.username AS hitchhiker,
+            COUNT(*) AS total_contributions
+        from points p left join user u on p.user_id = u.id
+        where p.user_id is not null
+        group by p.user_id
+        order by total_contributions desc"""
+    overall_contributions = pd.read_sql(
+        query,
+        get_db(),
+    )
+    overall_contributions.index = overall_contributions.index + 1
+
+    query = """select
+            u.username AS hitchhiker,
+            COUNT(*) AS total_contributions
+        from points p left join user u on p.user_id = u.id
+        where p.user_id is not null
+            and strftime('%Y-%m', p.datetime) = strftime('%Y-%m', 'now')
+        group by p.user_id
+        order by total_contributions desc;"""
+    monthly_contributions = pd.read_sql(
+        query,
+        get_db(),
+    )
+    monthly_contributions.index = monthly_contributions.index + 1
+
+    return render_template(
+        "security/contributors.html",
+        is_logged_in=not current_user.is_anonymous,
+        overall_contributions=overall_contributions.to_html(),
+        short_overall_contributions=overall_contributions.head(10).to_html(),
+        monthly_contributions=monthly_contributions.to_html(),
+        short_monthly_contributions=monthly_contributions.head(10).to_html(),
+    )
 
 
 @user_bp.route("/claim-review/<review_id>", methods=["GET", "POST"])
