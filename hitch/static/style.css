@@ -503,3 +503,7 @@ ul.no-style {
 #distance-filter {
   width: 100%;
 }
+.icon-button {
+  cursor: pointer;
+  font-size: 16px;
+}

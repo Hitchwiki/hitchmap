@@ -1,0 +1,10 @@
+{% extends "security/base.html" %}
+
+{% set title = "Failed action" %}
+
+{% block content %}
+<h1>Failed action</h1>
+
+<p class="fs-error-msg">{{message}}</p>
+<p><a href="/">Back to map</a></p>
+{% endblock %}
