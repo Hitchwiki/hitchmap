@@ -1,0 +1,55 @@
+{% extends "security/base.html" %}
+
+
+{% set title = Contributors %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Contributions lists should show up left and right any other styling that achieve this is fine as well*/
+    .overlay {
+        max-width: 1000px !important;
+        /* Override the max-width */
+        width: 90vw !important;
+        /* Adjust the width as needed */
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        /* Distribute space between items */
+        padding: 10px;
+    }
+
+    .left,
+    .right {
+        width: 45%;
+        /* Adjust width as needed */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Contributors</h1>
+<div class="container">
+    <div class="left">
+        <h4>Overall contributions</h4>
+        {% if is_logged_in %}
+        {{ overall_contributions|safe }}
+        {% else %}
+        {{ short_overall_contributions|safe }}
+        {% endif %}
+    </div>
+    <div class="right">
+        <h4>Contributions this month</h4>
+        {% if is_logged_in %}
+        {{ monthly_contributions|safe }}
+        {% else %}
+        {{ short_monthly_contributions|safe }}
+        {% endif %}
+    </div>
+</div>
+{% if not is_logged_in %}
+<p style="text-align: center;"><a href="/login">Log in</a> to see all contributions</p>
+{% endif %}
+{% endblock %}

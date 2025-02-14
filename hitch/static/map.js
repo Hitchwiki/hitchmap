@@ -992,3 +992,10 @@ var HeatmapInfoButton = L.Control.extend({
     return controlDiv;
   },
 });
+
+
+function confirmClaimReview(url) {
+    if (confirm("Are you sure you want to claim this review as yours? Did you create this review previously?")) {
+        window.location.href = url;
+    }
+};
